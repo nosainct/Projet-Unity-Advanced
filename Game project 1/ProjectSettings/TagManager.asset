@@ -7,6 +7,8 @@ TagManager:
   - Enemy
   - Wall
   - BreakableWall
+  - Allies
+  - Usable
   layers:
   - Default
   - TransparentFX
@@ -15,10 +17,10 @@ TagManager:
   - Water
   - UI
   - Enemy
+  - first plan Effect
   - Obstacle
-  - 
-  - 
-  - 
+  - Platform
+  - No collision
   - 
   - First plan Decoration
   - 

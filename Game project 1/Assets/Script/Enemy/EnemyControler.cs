@@ -8,6 +8,7 @@ public class EnemyControler : MonoBehaviour
     public GameObject Sensor;
     public Transform groundDetection;
     GameObject Player;
+    //public GameObject ShootSound;
 
 
     public float PatrolSpeed;
@@ -34,6 +35,16 @@ public class EnemyControler : MonoBehaviour
         Player = GameObject.FindGameObjectWithTag("Player");
         nextFire = Time.time;
         Life = MaxLife;
+    }
+
+    public void flip(){
+        if(movingRight == true){
+            transform.Rotate(0f,180f,0f);
+            movingRight = false;
+        }else{
+            transform.Rotate(0f,180f,0f);
+            movingRight = true;
+        }
     }
 
     void Update(){
@@ -87,6 +98,7 @@ public class EnemyControler : MonoBehaviour
                             nextFire = Time.time + FireRate;
                             m_animator.SetTrigger("Shoot");
                             Instantiate(bullet,transform.position,Quaternion.identity);
+                            //Instantiate(ShootSound);
                         }
                     }
                 }
@@ -106,7 +118,6 @@ public class EnemyControler : MonoBehaviour
                 IsDead = true;
             }
             m_animator.SetTrigger("Hit");
-
         }
     }
 
@@ -115,6 +126,20 @@ public class EnemyControler : MonoBehaviour
     }
 
     void OnTriggerEnter (Collider col){
+        Debug.Log(col);
+        if(col.tag == "Wall"){
+            if(movingRight == true){
+                transform.Rotate(0f,180f,0f);
+                movingRight = false;
+            }else{
+                transform.Rotate(0f,180f,0f);
+                movingRight = true;
+            }
+        }
+    }
+    
+    void OnTriggerStay (Collider col){
+        Debug.Log(col);
         if(col.tag == "Wall"){
             if(movingRight == true){
                 transform.Rotate(0f,180f,0f);

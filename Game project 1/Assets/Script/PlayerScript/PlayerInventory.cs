@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlayerInventory : MonoBehaviour
 {
@@ -27,11 +28,16 @@ public class PlayerInventory : MonoBehaviour
     // Interface Image
     public Image lifebar;
     public Image laserbar;
+    public Image armorbar;
+    public TextMeshProUGUI AmmoAmountUI;
 
     void Start()
     {
         m_animator = GetComponent<Animator>();
         Life = MaxLife;
+        Armor = 0;
+        Laser = 0;
+        laserbar.fillAmount = 0;
     }
 
     //////////////////////////////////////////////////////////////////////////
@@ -62,7 +68,7 @@ public class PlayerInventory : MonoBehaviour
 
     // Soigne le joueur
     public void Heal(int Amount){
-        for(int i = 0; i <= Amount; i++){
+        for(int i = 0; i < Amount; i++){
             if(Life == MaxLife)
                 break;
             Life++;
@@ -72,11 +78,12 @@ public class PlayerInventory : MonoBehaviour
 
     // Ajoute de l'armure aux joueur
     public void AddArmor(int Amount){
-        for(int i = 0; i <= Amount; i++){
+        for(int i = 0; i < Amount; i++){
             if(Armor == MaxArmor)
                 break;
             Armor++;
         }
+        armorbar.fillAmount = Mathf.Round(((1/(float)MaxArmor)*(float)Armor)*10000)/10000;
     }
 
     //////////////////////////////////////////////////////////////////////////
@@ -101,11 +108,13 @@ public class PlayerInventory : MonoBehaviour
 
     // Ajoute des Rockets dans l'inventaire du joueur
     public void AddRocket(int Amount){
-        for(int i = 0; i<=Amount; i++){
+        for(int i = 0; i<Amount; i++){
             if(Rocket == MaxRocket)
                 break;
             Rocket++;
         }
+        AmmoAmountUI.SetText(Rocket.ToString());
+        Debug.Log("A ramassé une rocket");
     }
 
     // Retire des Rockets dans l'inventaire du joueur
